@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulaire d'inscription</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      background-color: #f4f4f4;
+      color: #333;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.6rem;
+      color: #2c3e50;
+    }
+
+    form {
+      max-width: 650px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 6px;
+    }
+
+    fieldset {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #2c3e50;
+      padding: 0 8px;
+      font-size: 0.95rem;
+    }
+
+    .champ {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.92rem;
+      font-family: Arial, sans-serif;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+
+    /* Message d'erreur */
+    .erreur {
+      display: none;
+      font-size: 0.8rem;
+      color: #e74c3c;
+      margin-top: 4px;
+    }
+
+    /* Affiche le message quand le champ est invalide et touché */
+    input:invalid:not(:placeholder-shown) + .erreur,
+    select:invalid:focus + .erreur,
+    textarea:invalid:not(:placeholder-shown) + .erreur {
+      display: block;
+    }
+
+    input:invalid:not(:placeholder-shown) {
+      border-color: #e74c3c;
+    }
+
+    input:valid:not(:placeholder-shown) {
+      border-color: #27ae60;
+    }
+
+    .aide {
+      font-size: 0.78rem;
+      color: #777;
+      margin-top: 3px;
+    }
+
+    /* Radio / Checkbox */
+    .groupe-inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .groupe-inline label {
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .groupe-inline input[type="radio"],
+    .groupe-inline input[type="checkbox"] {
+      width: auto;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background-color: #2c3e50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #3498db;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Formulaire d'inscription</h1>
+
+  <form id="inscription" action="#" method="post" novalidate>
+
+    <!-- ── Informations personnelles ── -->
+    <fieldset>
+      <legend>Informations personnelles</legend>
+
+      <div class="champ">
+        <label for="nom">Nom *</label>
+        <input
+          type="text"
+          id="nom"
+          name="nom"
+          placeholder="Ex : Dupont"
+          autocomplete="family-name"
+          required
+        />
+        <span class="erreur">Le nom est obligatoire.</span>
+      </div>
+
+      <div class="champ">
+        <label for="prenom">Prénom *</label>
+        <input
+          type="text"
+          id="prenom"
+          name="prenom"
+          placeholder="Ex : Jean"
+          autocomplete="given-name"
+          required
+        />
+        <span class="erreur">Le prénom est obligatoire.</span>
+      </div>
+
+      <div class="champ">
+        <label for="email">Email *</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="exemple@domaine.fr"
+          autocomplete="email"
+          required
+        />
+        <span class="erreur">Entrez une adresse email valide (ex : nom@domaine.fr).</span>
+      </div>
+
+      <div class="champ">
+        <label for="telephone">Téléphone *</label>
+        <input
+          type="tel"
+          id="telephone"
+          name="telephone"
+          placeholder="06 12 34 56 78"
+          pattern="^(0[1-9])(\s?\d{2}){4}$"
+          autocomplete="tel"
+          required
+        />
+        <span class="erreur">Format français attendu : 06 12 34 56 78 ou 0612345678.</span>
+      </div>
+
+      <div class="champ">
+        <label for="naissance">Date de naissance *</label>
+        <input
+          type="date"
+          id="naissance"
+          name="naissance"
+          autocomplete="bday"
+          required
+        />
+        <span class="erreur" id="erreur-naissance">Vous devez avoir au moins 18 ans.</span>
+        <p class="aide">Vous devez avoir au moins 18 ans.</p>
+      </div>
+
+      <div class="champ">
+        <label>Genre *</label>
+        <div class="groupe-inline">
+          <label><input type="radio" name="genre" value="homme" required /> Homme</label>
+          <label><input type="radio" name="genre" value="femme" /> Femme</label>
+          <label><input type="radio" name="genre" value="autre" /> Autre</label>
+        </div>
+        <span class="erreur" id="erreur-genre" style="display:none;">Veuillez sélectionner votre genre.</span>
+      </div>
+
+    </fieldset>
+
+    <!-- ── Sécurité ── -->
+    <fieldset>
+      <legend>Sécurité</legend>
+
+      <div class="champ">
+        <label for="mdp">Mot de passe *</label>
+        <input
+          type="password"
+          id="mdp"
+          name="mdp"
+          placeholder="Votre mot de passe"
+          pattern="(?=.*[A-Z])(?=.*[0-9]).{8,}"
+          autocomplete="new-password"
+          required
+        />
+        <span class="erreur" id="erreur-mdp">Le mot de passe doit contenir au moins 8 caractères, 1 majuscule et 1 chiffre.</span>
+        <p class="aide">8 caractères minimum, 1 majuscule, 1 chiffre.</p>
+      </div>
+
+      <div class="champ">
+        <label for="mdp2">Confirmer le mot de passe *</label>
+        <input
+          type="password"
+          id="mdp2"
+          name="mdp2"
+          placeholder="Répétez le mot de passe"
+          autocomplete="new-password"
+          required
+        />
+        <span class="erreur" id="erreur-mdp2">Les mots de passe ne correspondent pas.</span>
+      </div>
+
+    </fieldset>
+
+    <!-- ── Localisation ── -->
+    <fieldset>
+      <legend>Localisation</legend>
+
+      <div class="champ">
+        <label for="pays">Pays *</label>
+        <select id="pays" name="pays" autocomplete="country" required>
+          <option value="">-- Sélectionnez un pays --</option>
+          <option value="FR">France</option>
+          <option value="BE">Belgique</option>
+          <option value="CH">Suisse</option>
+          <option value="MA">Maroc</option>
+          <option value="autre">Autre</option>
+        </select>
+        <span class="erreur" id="erreur-pays" style="display:none;">Veuillez sélectionner votre pays.</span>
+      </div>
+
+      <div class="champ">
+        <label for="ville">Ville</label>
+        <input
+          type="text"
+          id="ville"
+          name="ville"
+          list="villes-liste"
+          placeholder="Paris, Lyon, Marseille..."
+          autocomplete="address-level2"
+        />
+        <datalist id="villes-liste">
+          <option value="Paris" />
+          <option value="Lyon" />
+          <option value="Marseille" />
+          <option value="Bordeaux" />
+          <option value="Toulouse" />
+          <option value="Nantes" />
+        </datalist>
+      </div>
+
+    </fieldset>
+
+    <!-- ── Profil ── -->
+    <fieldset>
+      <legend>Profil</legend>
+
+      <div class="champ">
+        <label>Centres d'intérêt</label>
+        <div class="groupe-inline">
+          <label><input type="checkbox" name="interets" value="tech" /> Technologie</label>
+          <label><input type="checkbox" name="interets" value="sport" /> Sport</label>
+          <label><input type="checkbox" name="interets" value="musique" /> Musique</label>
+          <label><input type="checkbox" name="interets" value="voyage" /> Voyage</label>
+          <label><input type="checkbox" name="interets" value="lecture" /> Lecture</label>
+          <label><input type="checkbox" name="interets" value="cinema" /> Cinéma</label>
+        </div>
+      </div>
+
+      <div class="champ">
+        <label for="bio">Biographie</label>
+        <textarea
+          id="bio"
+          name="bio"
+          rows="4"
+          maxlength="500"
+          placeholder="Présentez-vous en quelques mots..."
+        ></textarea>
+        <p class="aide">500 caractères maximum.</p>
+      </div>
+
+      <div class="champ">
+        <label for="photo">Photo de profil</label>
+        <input
+          type="file"
+          id="photo"
+          name="photo"
+          accept="image/png, image/jpeg, image/webp"
+        />
+        <p class="aide">Formats acceptés : JPG, PNG, WEBP.</p>
+      </div>
+
+    </fieldset>
+
+    <!-- ── CGU ── -->
+    <div class="champ">
+      <div class="groupe-inline">
+        <label>
+          <input type="checkbox" id="cgu" name="cgu" value="1" required />
+          J'accepte les <a href="#" target="_blank" rel="noopener noreferrer">conditions générales d'utilisation</a> *
+        </label>
+      </div>
+      <span class="erreur" id="erreur-cgu" style="display:none;">Vous devez accepter les CGU pour vous inscrire.</span>
+    </div>
+
+    <button type="submit">S'inscrire</button>
+
+  </form>
+
+  <script>
+    const form = document.getElementById('inscription');
+
+    // ── Vérification âge minimum 18 ans ──
+    document.getElementById('naissance').addEventListener('change', function () {
+      const erreur = document.getElementById('erreur-naissance');
+      const valeur = new Date(this.value);
+      const limite = new Date();
+      limite.setFullYear(limite.getFullYear() - 18);
+
+      if (valeur > limite) {
+        this.setCustomValidity('Vous devez avoir au moins 18 ans.');
+        erreur.style.display = 'block';
+      } else {
+        this.setCustomValidity('');
+        erreur.style.display = 'none';
+      }
+    });
+
+    // ── Vérification confirmation mot de passe ──
+    document.getElementById('mdp2').addEventListener('input', function () {
+      const mdp1 = document.getElementById('mdp').value;
+      const erreur = document.getElementById('erreur-mdp2');
+
+      if (this.value !== mdp1) {
+        this.setCustomValidity('Les mots de passe ne correspondent pas.');
+        erreur.style.display = 'block';
+      } else {
+        this.setCustomValidity('');
+        erreur.style.display = 'none';
+      }
+    });
+
+    // ── Validation à la soumission ──
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      let valide = true;
+
+      // Genre
+      const genre = form.querySelectorAll('input[name="genre"]');
+      const genreErreur = document.getElementById('erreur-genre');
+      const genreOk = Array.from(genre).some(r => r.checked);
+      genreErreur.style.display = genreOk ? 'none' : 'block';
+      if (!genreOk) valide = false;
+
+      // Pays
+      const pays = document.getElementById('pays');
+      const paysErreur = document.getElementById('erreur-pays');
+      if (!pays.value) {
+        paysErreur.style.display = 'block';
+        valide = false;
+      } else {
+        paysErreur.style.display = 'none';
+      }
+
+      // CGU
+      const cgu = document.getElementById('cgu');
+      const cguErreur = document.getElementById('erreur-cgu');
+      if (!cgu.checked) {
+        cguErreur.style.display = 'block';
+        valide = false;
+      } else {
+        cguErreur.style.display = 'none';
+      }
+
+      // Vérification native HTML5
+      if (!form.checkValidity()) {
+        valide = false;
+      }
+
+      if (valide) {
+        alert('Inscription réussie !');
+        form.reset();
+      }
+    });
+  </script>
+
+</body>
+</html>
